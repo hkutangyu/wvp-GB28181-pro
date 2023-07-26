@@ -41,6 +41,7 @@ services:
       WVP_CONFIG:
     depends_on:
       - mysql
+      - zlm
   mysql:
     image: mariadb:10.7.3 # 指定镜像和版本
     restart: always
@@ -65,11 +66,11 @@ services:
       - ${ZLM_PORT}:${ZLM_PORT}
       - ${ZLM_RTMP_PORT}:${ZLM_RTMP_PORT}
       - ${ZLM_HTTPS_PORT}:443
-      - ${ZLM_RTSP_PORT}:554
+      - ${ZLM_RTSP_PORT}:${ZLM_RTSP_PORT}
       - 10001:10001
       - ${ZLM_RTC_UDP}:${ZLM_RTC_UDP}
       - ${ZLM_SRT_UDP}:${ZLM_SRT_UDP}
-      - ${ZLM_PORT_RANGE}:${ZLM_PORT_RANGE}
+      - ${ZLM_PORT_RANGE_X}:${ZLM_PORT_RANGE_X}
     restart: always
     networks:
       - backend
@@ -78,7 +79,7 @@ services:
       - /application_pool/wvp_zlmediakit/record:/opt/media/bin/www/record # 挂载录像目录
 networks:
   backend:
-  driver: bridge
-  ipam:
-    config:
-      - subnet: 172.28.0.0/16
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
