@@ -1,5 +1,6 @@
 # .env file
 .env
+zlm_config/config.ini
 # Compiled class file
 *.class
 
