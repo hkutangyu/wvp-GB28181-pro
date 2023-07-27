@@ -571,7 +571,7 @@ public class MediaServerServiceImpl implements IMediaServerService {
         param.put("hook.on_send_rtp_stopped",String.format("%s/on_send_rtp_stopped", hookPrex));
         param.put("hook.on_rtp_server_timeout",String.format("%s/on_rtp_server_timeout", hookPrex));
         if (mediaServerItem.getRecordAssistPort() > 0) {
-            param.put("hook.on_record_mp4",String.format("http://127.0.0.1:%s/api/record/on_record_mp4", mediaServerItem.getRecordAssistPort()));
+            param.put("hook.on_record_mp4",String.format("http://%s:%s/api/record/on_record_mp4", mediaServerItem.getHookIp(), mediaServerItem.getRecordAssistPort()));
         }else {
             param.put("hook.on_record_mp4","");
         }

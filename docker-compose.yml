@@ -11,12 +11,12 @@ services:
       - ./docker_opt/assist/config:/opt/assist/config
       - /application_pool/wvp_zlmediakit/record:/opt/media/bin/www/record
     environment:
-      ZLM_HOST: ${ZLM_HOST}
-      ZLM_PORT: ${ZLM_PORT}
-      ZLM_SECRET: ${ZLM_SECRET}
-      ZLM_PORT_RANGE: ${ZLM_PORT_RANGE}
-      ZLM_SEND_PORT_RANGE: ${ZLM_SEND_PORT_RANGE}
-      TZ: ${TZ}
+      ZLM_HOST: ${WVP_ZLM_HOST}
+      ZLM_PORT: ${WVP_ZLM_PORT}
+      ZLM_SECRET: ${WVP_ZLM_SECRET}
+      ZLM_PORT_RANGE: ${WVP_ZLM_PORT_RANGE}
+      ZLM_SEND_PORT_RANGE: ${WVP_ZLM_SEND_PORT_RANGE}
+      TZ: ${WVP_TZ}
       WVP_IP: ${WVP_IP}
       WVP_HOST: ${WVP_HOST}
       WVP_PORT: ${WVP_PORT}
@@ -25,18 +25,18 @@ services:
       WVP_PWD: ${WVP_PWD}
       WVP_DOMAIN: ${WVP_DOMAIN}
       WVP_ID: ${WVP_ID}
-      REDIS_HOST: ${REDIS_HOST}
-      REDIS_PORT: ${REDIS_PORT}
-      REDIS_DB: ${REDIS_DB}
-      REDIS_PWD: ${REDIS_PWD}
+      REDIS_HOST: ${WVP_REDIS_HOST}
+      REDIS_PORT: ${WVP_REDIS_PORT}
+      REDIS_DB: ${WVP_REDIS_DB}
+      REDIS_PWD: ${WVP_REDIS_PWD}
       ASSIST_JVM_CONFIG_XMS: ${ASSIST_JVM_CONFIG_XMS}
       ASSIST_JVM_CONFIG_XMX: ${ASSIST_JVM_CONFIG_XMX}
       WVP_JVM_CONFIG_XMS: ${WVP_JVM_CONFIG_XMS}
       WVP_JVM_CONFIG_XMX: ${WVP_JVM_CONFIG_XMX}
-      MYSQL_HOST: ${MYSQL_HOST}
-      MYSQL_PORT: ${MYSQL_PORT}
-      MYSQL_USERNAME: ${MYSQL_USERNAME}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_HOST: ${WVP_MYSQL_HOST}
+      MYSQL_PORT: ${WVP_MYSQL_PORT}
+      MYSQL_USERNAME: ${WVP_MYSQL_USERNAME}
+      MYSQL_PASSWORD: ${WVP_MYSQL_PASSWORD}
       ASSIST_CONFIG:
       WVP_CONFIG:
     depends_on:
@@ -52,9 +52,9 @@ services:
         "--default-time-zone=+8:00",
       ]
     ports:
-      - ${MYSQL_PORT}:3306
+      - ${WVP_MYSQL_PORT}:3306
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${WVP_MYSQL_PASSWORD}
       SQL_MODE: "STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
     volumes:
       - /application_pool/wvp_mysql:/var/lib/mysql:rw # 挂载数据目录
@@ -63,14 +63,14 @@ services:
   zlm:
     image: hkutangyu/zlmediakit:1.0
     ports:
-      - ${ZLM_PORT}:${ZLM_PORT}
-      - ${ZLM_RTMP_PORT}:${ZLM_RTMP_PORT}
-      - ${ZLM_HTTPS_PORT}:443
-      - ${ZLM_RTSP_PORT}:${ZLM_RTSP_PORT}
+      - ${WVP_ZLM_PORT}:${WVP_ZLM_PORT}
+      - ${WVP_ZLM_RTMP_PORT}:${WVP_ZLM_RTMP_PORT}
+      - ${WVP_ZLM_HTTPS_PORT}:443
+      - ${WVP_ZLM_RTSP_PORT}:${WVP_ZLM_RTSP_PORT}
       - 10001:10001
-      - ${ZLM_RTC_UDP}:${ZLM_RTC_UDP}
-      - ${ZLM_SRT_UDP}:${ZLM_SRT_UDP}
-      - ${ZLM_PORT_RANGE_X}:${ZLM_PORT_RANGE_X}
+      - ${WVP_ZLM_RTC_UDP}:${WVP_ZLM_RTC_UDP}
+      - ${WVP_ZLM_SRT_UDP}:${WVP_ZLM_SRT_UDP}
+      - ${WVP_ZLM_PORT_RANGE_X}:${WVP_ZLM_PORT_RANGE_X}
     restart: always
     networks:
       - backend
